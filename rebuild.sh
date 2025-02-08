@@ -2,9 +2,9 @@
 
 echo
 echo "--------------------------------------"
-echo "        exthmUI 13.0 Buildbot         "
-echo "                  by                  "
-echo "             kindle4jerry             "
+echo "        exthmUI 14.0 Buildbot         "
+echo "            by qssn70                 "
+echo "        based on kindle4jerry         "
 echo "--------------------------------------"
 echo
 
@@ -16,7 +16,7 @@ BD=$HOME/builds
 initRepos() {
     if [ ! -d .repo ]; then
         echo "--> Initializing workspace"
-        repo init -u https://github.com/exTHmUI/android -b Tenshi --depth=1
+        repo init -u https://github.com/exTHmUI/android -b Utsuho --depth=1
         echo
 
         echo "--> Preparing local manifest"
@@ -29,6 +29,12 @@ initRepos() {
 syncRepos() {
     echo "--> Syncing repos"
     repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
+	while [ $? -ne 0 ];
+	do
+	echo "error! sync failed,auto restart in 3s."
+	sleep 3s
+	repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
+	done
     echo
 }
 
@@ -68,7 +74,7 @@ buildTrebleApp() {
 
 buildVariant() {
     echo "--> Building treble_arm64_bvN"
-    lunch treble_arm64_bvN-userdebug
+    lunch treble_arm64_bvN-ap2a-userdebug
     make -j$(nproc --all) installclean
     make -j$(nproc --all) systemimage
     mv $OUT/system.img $BD/system-treble_arm64_bvN.img
@@ -110,7 +116,7 @@ BUILD_DATE="$(date +%Y%m%d)"
 #syncRepos
 #applyPatches
 setupEnv
-#buildTrebleApp
+#buildSTrebleApp
 buildVariant
 #buildSlimVariant
 #buildVndkliteVariant
