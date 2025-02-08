@@ -8,7 +8,7 @@ To get started with building exTHmUI GSI, you'll need to get familiar with [Git 
     ```
 - Clone this repo:
     ```
-    git clone https://github.com/qssn70/treble_build_exthm -b Utsuho
+    git clone https://github.com/qssn70/treble_build_exthm -b Utsuho .
     ```
 - Finally, start the build script(the first time):
     ```
