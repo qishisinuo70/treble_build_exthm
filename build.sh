@@ -17,50 +17,51 @@ initRepos() {
     if [ ! -d .repo ]; then
         echo "--> Initializing workspace"
         repo init -u https://github.com/exTHmUI/android -b Utsuho --depth=1
-        echo
 
         echo "--> Preparing local manifest"
         mkdir -p .repo/local_manifests
         cp $BL/manifest.xml .repo/local_manifests/exthm.xml
-        echo
+		
+		echo
     fi
 }
 
 syncRepos() {
     echo "--> Syncing repos"
     repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
+	
+	#restart sync when  failed
 	while [ $? -ne 0 ];
 	do
-	echo "error! sync failed,auto restart in 3s."
+	echo              "!!error!! sync failed!"
+	echo "It will be restarted automatically after 3 seconds."
 	sleep 3s
 	repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
 	done
-    echo
+	
+	echo
 }
 
 applyPatches() {
-    echo "--> Applying prerequisite patches"
-#    bash $BL/apply-patches.sh $BL prerequisite
-    echo
-
     echo "--> Applying TrebleDroid patches"
     cd device/phh/treble
     cp $BL/exthm.mk .
     bash generate.sh exthm
     cd ../../..
     bash $BL/apply-patches.sh $BL trebledroid
-    echo
 
     echo "--> Applying personal patches"
     bash $BL/apply-patches.sh $BL personal
-    echo
+	
+	echo
 }
 
 setupEnv() {
     echo "--> Setting up build environment"
     source build/envsetup.sh &>/dev/null
     mkdir -p $BD
-    echo
+	
+	echo
 }
 
 buildTrebleApp() {
@@ -69,7 +70,8 @@ buildTrebleApp() {
     bash build.sh release
     cp TrebleApp.apk ../vendor/hardware_overlay/TrebleApp/app.apk
     cd ..
-    echo
+	
+	echo
 }
 
 buildVariant() {
@@ -78,7 +80,8 @@ buildVariant() {
     make -j$(nproc --all) installclean
     make -j$(nproc --all) systemimage
     mv $OUT/system.img $BD/system-treble_arm64_bvN.img
-    echo
+	
+	echo
 }
 
 buildSlimVariant() {
@@ -87,7 +90,8 @@ buildSlimVariant() {
     make -j$(nproc --all) systemimage
     (cd vendor/exthm && git reset --hard HEAD~1)
     mv $OUT/system.img $BD/system-treble_arm64_bvN-slim.img
-    echo
+	
+	echo
 }
 
 buildVndkliteVariant() {
@@ -97,7 +101,8 @@ buildVndkliteVariant() {
     cp s.img $BD/system-treble_arm64_bvN-vndklite.img
     sudo rm -rf s.img d tmp
     cd ..
-    echo
+	
+	echo
 }
 
 generatePackages() {
@@ -106,7 +111,8 @@ generatePackages() {
 #    xz -cv $BD/system-treble_arm64_bvN-vndklite.img -T0 > $BD/exthmUI_arm64-ab-vndklite-7.6-unofficial-$BUILD_DATE.img.xz
 #    xz -cv $BD/system-treble_arm64_bvN-slim.img -T0 > $BD/exthmUI_arm64-ab-slim-7.6-unofficial-$BUILD_DATE.img.xz
     rm -rf $BD/system-*.img
-    echo
+	
+	echo
 }
 
 START=`date +%s`
@@ -127,4 +133,3 @@ ELAPSEDM=$(($(($END-$START))/60))
 ELAPSEDS=$(($(($END-$START))-$ELAPSEDM*60))
 
 echo "--> Buildbot completed in $ELAPSEDM minutes and $ELAPSEDS seconds"
-echo
