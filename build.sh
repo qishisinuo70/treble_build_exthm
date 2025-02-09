@@ -76,7 +76,7 @@ buildTrebleApp() {
 
 buildVariant() {
     echo "--> Building treble_arm64_bvN"
-    lunch treble_arm64_bvN-ap2a-userdebug
+    lunch treble_arm64_bvN-userdebug
     make -j$(nproc --all) installclean
     make -j$(nproc --all) systemimage
     mv $OUT/system.img $BD/system-treble_arm64_bvN.img
