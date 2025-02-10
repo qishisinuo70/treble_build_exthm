@@ -1,7 +1,7 @@
-$(call inherit-product, vendor/exthm/config/phone.mk)
-$(call inherit-product, vendor/exthm/config/BoardConfigSoong.mk)
-$(call inherit-product, device/exthm/sepolicy/common/sepolicy.mk)
--include vendor/exthm/build/core/config.mk
+#$(call inherit-product, vendor/exthm/config/phone.mk)
+#$(call inherit-product, vendor/exthm/config/BoardConfigSoong.mk)
+#$(call inherit-product, device/exthm/sepolicy/common/sepolicy.mk)
+#-include vendor/exthm/build/core/config.mk
 
 TARGET_BOOT_ANIMATION_RES := 1080
 
