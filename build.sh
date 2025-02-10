@@ -50,6 +50,8 @@ applyPatches() {
 echo "--> Creating config files"
 cd device/phh/treble
 cp $BL/Android.bp bluetooth/audio
+cp -frp $BL/hw/Android.bp bluetooth/audio/hw
+cp -frp $BL/utils/Android.bp bluetooth/audio/utils
 cp $BL/exthm.mk .
 bash generate.sh exthm
 cd ../../..
