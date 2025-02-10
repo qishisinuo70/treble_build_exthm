@@ -49,6 +49,7 @@ syncRepos() {
 applyPatches() {
 echo "--> Creating config files"
 cd device/phh/treble
+cp $BL/Android.bp bluetooth/audio
 cp $BL/exthm.mk .
 bash generate.sh exthm
 cd ../../..

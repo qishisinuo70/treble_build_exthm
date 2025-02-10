@@ -1,0 +1,7 @@
+cc_library_shared {
+    name: "latest_android_hardware_bluetooth_audio_ndk_shared",
+    srcs: [],
+    export_include_dirs: ["."],
+    // 根据需要添加其他属性
+}
+
