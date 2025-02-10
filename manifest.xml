@@ -1,4 +1,4 @@
- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <manifest>
 <remote name="phh" fetch="https://github.com/phhusson/" />
 <remote name="td" fetch="https://github.com/TrebleDroid/" />
@@ -11,5 +11,5 @@
 <project path="packages/apps/QcRilAm" name="AndyCGYan/android_packages_apps_QcRilAm" remote="github" revision="master" />
 <project path="prebuilts/vndk/v28" name="platform/prebuilts/vndk/v28" remote="aosp" clone-depth="1" revision="204f1bad00aaf480ba33233f7b8c2ddaa03155dd" />
 <project name="treble_app" path="treble_app" remote="td" revision="master" />
-<project name="ponces/treble_adapter" path="sas-creator" remote="github" revision="master" />
+<project name="sas-creator" path="sas-creator" remote="phh" revision="master" />
 </manifest>
